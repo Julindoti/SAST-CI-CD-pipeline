@@ -34,15 +34,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
               synk test --sarif-file=synk.sarif --all-projects 
-   
-      - name: Debug of sarif file
-        run: | 
-            if [ -f "snyk.sarif" ]; then
-              echo "snyk.sarif exists."
-            else
-              echo "snyk.sarif NOT FOUND. Snyk might have failed to detect your project."
-              exit 1
-            fi        
+      
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:

@@ -34,9 +34,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
               snyk test --json-file-output=snyk.json || true
-              
               cat snyk.json | snyk-to-sarif > snyk.sarif
-      
+              snyk test code --sarif-file-output=snyk-code.sarif 
+              
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4
         with:

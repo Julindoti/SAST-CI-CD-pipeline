@@ -33,7 +33,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
-              --sarif-file-output=snyk.sarif 
+              synk test --sarif-file=synk.sarif --all-projects 
    
       - name: Debug of sarif file
         run: | 

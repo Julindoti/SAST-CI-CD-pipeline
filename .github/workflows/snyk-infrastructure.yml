@@ -24,16 +24,18 @@ jobs:
       - name: Installing dependencies
         run: npm install && npm install -g snyk-to-sarif
         
-      - name: Synk CLI setup
+      - name: Snyk CLI setup
         uses: snyk/actions/setup@master
         
-      - name: Running Synk
+      - name: Running Snyk
         shell: bash
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
-              snyk test --json | synk-to-sarif > snyk.sarif
+              snyk test --json-file-output=snyk.json || true
+              
+              cat snyk.json | snyk-to-sarif > snyk.sarif
       
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4

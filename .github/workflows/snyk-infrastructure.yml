@@ -20,9 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run Snyk to check configuration files for security issues
+      - name: Installing dependencies
+        run: npm install
+      - name: Synk CLI setup
+        uses: snyk/actions/setup@master
+      - name: Running Synk
+        shell: bash
         continue-on-error: true
-        uses: snyk/actions/node@master 
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:

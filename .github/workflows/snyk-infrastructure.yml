@@ -34,6 +34,7 @@ jobs:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
               snyk code test --json-file-output=snyk-code.json || true
+              ls
               cat snyk-code.json | snyk-to-sarif > snyk-code.sarif
               
       - name: Snyk SAST Results

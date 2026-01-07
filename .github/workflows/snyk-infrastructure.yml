@@ -27,17 +27,32 @@ jobs:
       - name: Snyk CLI setup
         uses: snyk/actions/setup@master
         
-      - name: Running Snyk
+      - name: Running Snyk SAST
+        shell: bash
+        continue-on-error: true
+        env:
+           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: | 
+              snyk test code --sarif > snyk-code.sarif || true 
+      - name: Snyk SAST Results
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: snyk-code.sarif
+          category: snyk-code
+          
+      - name: Running Snyk SCA
         shell: bash
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
               snyk test --json-file-output=snyk.json || true
-              cat snyk.json | snyk-to-sarif > snyk.sarif
-              snyk test code --sarif-file-output=snyk-code.sarif 
+              cat snyk.json | snyk-to-sarif > snyk-sca.sarif
               
-      - name: Upload result to GitHub Code Scanning
+              
+      - name: Snyk SCA Results
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-sca.sarif
+          category: snyk-packages
+  

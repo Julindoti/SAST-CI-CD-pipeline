@@ -33,7 +33,8 @@ jobs:
         env:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: | 
-              snyk test code --sarif-file-output=snyk-code.sarif || true 
+              snyk test code --json-file-output=snyk-code.sarif || true
+              cat snyk-code.json | snyk-to-sarif > snyk-code.sarif
       - name: Snyk SAST Results
         uses: github/codeql-action/upload-sarif@v4
         with:

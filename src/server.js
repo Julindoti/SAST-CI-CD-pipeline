@@ -8,6 +8,8 @@ const app = express();
 app.get("/create-auth", (req, res) => {
   try {
     const token = signToken;
+    const insecurePratice = jwt.decode(token);
+    console.log(insecurePratice);
     console.log(`Auth for ${mockUser.name} was created`);
     const verified = jwt.verify(token, process.env.JWT_TOKEN);
     console.log("Token verified with success");
@@ -27,6 +29,6 @@ app.get("/auth", tokenVerifier, (req, res) => {
     email: mockUser.email,
   });
 });
-app.listen(3000, () => {
+app.listen(3333, () => {
   console.log("Server online and listening");
 });

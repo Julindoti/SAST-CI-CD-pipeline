@@ -2,14 +2,14 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import mockUser from "./mockUser.js";
 import { signToken, tokenVerifier } from "./authenticator.js";
-
+import fileReader from "./fileReader.js";
 const app = express();
 
 app.get("/create-auth", (req, res) => {
   try {
     const token = signToken;
     const insecurePratice = jwt.decode(token);
-    console.log(insecurePratice);
+    fileReader(insecurePratice.name);
     console.log(`Auth for ${mockUser.name} was created`);
     const verified = jwt.verify(token, process.env.JWT_TOKEN);
     console.log("Token verified with success");

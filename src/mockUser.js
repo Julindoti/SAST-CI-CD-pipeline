@@ -1,6 +1,6 @@
 const mockUser = {
   id: 1,
-  name: "Test",
+  name: "test",
   email: "test@gmail.com",
 };
 export default mockUser;

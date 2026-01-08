@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import mockUser from "./mockUser.js";
 
 export const signToken = jwt.sign(
-  { id: mockUser.id, email: mockUser.email },
+  { id: mockUser.id, name: mockUser.name, email: mockUser.email },
   process.env.JWT_TOKEN,
   { expiresIn: "1h" },
 );

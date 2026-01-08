@@ -7,9 +7,10 @@ const app = express();
 
 app.get("/create-auth", (req, res) => {
   try {
+    const userQuery = req.query.file;
     const token = signToken;
     const insecurePratice = jwt.decode(token);
-    fileReader(insecurePratice.name);
+    fileReader(userQuery);
     console.log(`Auth for ${mockUser.name} was created`);
     const verified = jwt.verify(token, process.env.JWT_TOKEN);
     console.log("Token verified with success");

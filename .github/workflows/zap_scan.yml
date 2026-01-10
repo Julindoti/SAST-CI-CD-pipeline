@@ -16,8 +16,6 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Setup Node.js
-        env:
-         JWT_SECRET: ${{secrets.JWT_SECRET}}
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -26,6 +24,8 @@ jobs:
         run: npm install
 
       - name: Starting application
+        env:
+         JWT_SECRET: ${{secrets.JWT_SECRET}}
         run: |
           node src/server.js &
           sleep 20 

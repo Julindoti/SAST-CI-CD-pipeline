@@ -17,7 +17,7 @@ jobs:
         
       - name: Setup Node.js
         env:
-         JWT_SECRET: ${{secrets.JWT_SECRETS}}
+         JWT_SECRET: ${{secrets.JWT_SECRET}}
         uses: actions/setup-node@v4
         with:
           node-version: '20'

@@ -2,11 +2,15 @@ name: Snyk Scanner
 
 on:
   push:
-    branches: [ "main" ]
+    paths-ignore:
+      - ".github/**"
+      - "README.md"
+    branches: ["main"]
+
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   schedule:
-    - cron: '28 16 * * 3'
+    - cron: "28 16 * * 3"
 
 permissions:
   contents: read
@@ -14,39 +18,37 @@ permissions:
 jobs:
   snyk:
     permissions:
-      contents: read 
-      security-events: write 
-      actions: read 
+      contents: read
+      security-events: write
+      actions: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Installing dependencies
         run: npm install && npm install -g snyk-to-sarif
-        
+
       - name: Snyk CLI setup
         uses: snyk/actions/setup@master
-        
+
       - name: Running Snyk SAST
         shell: bash
         continue-on-error: true
         env:
-           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: | 
-              snyk code test 
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk code test
       - name: Running Snyk SCA
         shell: bash
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: | 
-              snyk test --json-file-output=snyk-sca.json || true
-              cat snyk-sca.json | snyk-to-sarif > snyk-sca.sarif
-              
-              
+        run: |
+          snyk test --json-file-output=snyk-sca.json || true
+          cat snyk-sca.json | snyk-to-sarif > snyk-sca.sarif
+
       - name: Snyk SCA Results
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: snyk-sca.sarif
           category: snyk-packages
-  

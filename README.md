@@ -1,2 +1,4 @@
-# SAST-CI-CD-pipeline
-CI/CD pipeline with SAST automated scanning 
+# SAST-DAST-pipeline
+CI/CD pipeline with SAST & DAST automated project scanning
+
+SAST-CI-CD-pipeline

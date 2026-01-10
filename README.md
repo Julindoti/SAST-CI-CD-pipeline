@@ -1,5 +1,5 @@
- # <center> SAST-DAST-pipeline </center>
-On this project im using 2 tools, Snyk and OWASP ZAP framework,respectively for SAST and DAST scanning on CI/CD pipelines
+ # SAST-DAST-pipeline
+DevSecOps project with focus on using 2 tools, Snyk and OWASP ZAP framework,respectively for SAST and DAST scanning on CI/CD pipelines
 
 ## Snyk (Inside-Out Security)
 Snyk is a developer-first security platform used to find and fix vulnerabilities in your application's "building blocks." It operates primarily during the development and build phases.

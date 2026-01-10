@@ -1,0 +1,39 @@
+- name: ZAP Baseline Scanner
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+permissions:
+  contents: read  
+jobs:  
+  zap_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Installing dependencies
+        run: npm install
+
+      - name: Starting application
+        run: |
+          node src/server.js &
+          sleep 20 
+          
+      - name: Running OWASP ZAP Baseline Scan
+         uses: zaproxy/action-baseline@v0.15.0
+        with:
+         token: ${{secrets.GITHUB_TOKEN}}
+          target: 'http://localhost:3333'
+          rules_file_name: '.zap/rules.tsv'
+          fail_on_severity: 'Medium'
+          
+

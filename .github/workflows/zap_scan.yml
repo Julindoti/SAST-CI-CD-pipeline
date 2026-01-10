@@ -29,11 +29,11 @@ jobs:
           sleep 20 
           
       - name: Running OWASP ZAP Baseline Scan
-         uses: zaproxy/action-baseline@v0.15.0
+        uses: zaproxy/action-baseline@v0.15.0
         with:
          token: ${{secrets.GITHUB_TOKEN}}
-          target: 'http://localhost:3333'
-          rules_file_name: '.zap/rules.tsv'
-          fail_on_severity: 'Medium'
+         target: 'http://localhost:3333'
+         rules_file_name: '.zap/rules.tsv'
+         fail_on_severity: 'Medium'
           
 

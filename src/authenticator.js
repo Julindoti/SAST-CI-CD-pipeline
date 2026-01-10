@@ -3,7 +3,7 @@ import mockUser from "./mockUser.js";
 
 export const signToken = jwt.sign(
   { id: mockUser.id, name: mockUser.name, email: mockUser.email },
-  process.env.JWT_TOKEN,
+  process.env.JWT_SECRET,
   { expiresIn: "1h" },
 );
 export const tokenVerifier = (req, res, next) => {

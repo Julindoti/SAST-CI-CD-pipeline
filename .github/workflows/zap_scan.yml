@@ -1,4 +1,4 @@
-- name: ZAP Baseline Scanner
+name: ZAP Baseline Scanner
 
 on:
   push:
